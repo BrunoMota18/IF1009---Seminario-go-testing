@@ -200,7 +200,7 @@ Muitas vezes enquanto escrevendo testes não conseguiremos uma cobertura que nos
 
 Este comando acima colocará os dados sobre a cobertura em um arquivo específico(poderia ser de outro formato). Em seguida executamos:
 
-   `go test cover -html="cover.txt" -o cover.html`
+	go test cover -html="cover.txt" -o cover.html
 
 Por fim, uma página html será gerada com highlighting verde para os statements cobertos e vermelha para os não cobertos.
 
