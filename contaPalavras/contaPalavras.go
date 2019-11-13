@@ -1,10 +1,3 @@
-/*
-https://golang.org/cmd/go/#hdr-Testing_flags
-go test -v: verbose output
-go test -bench ".": benchmark
-go test -cover
-*/
-
 package main
 
 import (
@@ -13,6 +6,14 @@ import (
 	"log"
 	"strings"
 )
+
+func Dummy(x int) bool {
+	if x > 5 {
+		return true
+	} else {
+		return false
+	}
+}
 
 func contaPalavras(frase string) (map[string]int, error) {
 	dicionario := make(map[string]int)
