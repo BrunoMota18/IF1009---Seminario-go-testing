@@ -155,13 +155,13 @@ A comparação é feita a partir de `got` com `want` e caso venha a falhar um pr
 
 Para rodar o test deve ser utilizado `go test` porém ainda temos outras opções como o `go test -v` para ver com mais detalhes(verbose).
 
-##### go test
+#### go test
 Aqui está o comportamento do `go test`:
 
     PASS
     ok      contaPalavras  0.599s
 
-##### go test -v
+#### go test -v
 Aqui vemos como se comporta o `go test -v`:
 
 
@@ -200,13 +200,13 @@ Muitas vezes enquanto escrevendo testes não conseguiremos uma cobertura que nos
 
 Este comando acima colocará os dados sobre a cobertura em um arquivo específico(poderia ser de outro formato). Em seguida executamos:
 
-   go test cover -html="cover.txt" -o cover.html
+   `go test cover -html="cover.txt" -o cover.html`
 
 Por fim, uma página html será gerada com highlighting verde para os statements cobertos e vermelha para os não cobertos.
 
 Adicionando a função Dummy no código apenas por razões didáticas a explicação ficará mais clara.
 
-### contaPalavras.go
+### dummy.go
 
     func Dummy(x int) bool {
 	  if x > 5 {
@@ -216,7 +216,7 @@ Adicionando a função Dummy no código apenas por razões didáticas a explica�
 	  }
     }
 
-### contaPalavras_test.go
+### dummy_test.go
 
     func TestDummy(t *testing.T) {
 	  got := Dummy(6)
