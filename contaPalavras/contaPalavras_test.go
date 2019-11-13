@@ -17,15 +17,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDummy(t *testing.T) {
-	got := Dummy(6)
-	want := true
-
-	if got != want {
-		t.Errorf("got %t want %t", got, want)
-	}
-}
-
 func TestContaPalavras(t *testing.T) {
 	assertEqualMaps := func(t *testing.T, got, want map[string]int) {
 		t.Helper()

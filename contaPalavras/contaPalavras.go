@@ -7,14 +7,6 @@ import (
 	"strings"
 )
 
-func Dummy(x int) bool {
-	if x > 5 {
-		return true
-	} else {
-		return false
-	}
-}
-
 func contaPalavras(frase string) (map[string]int, error) {
 	dicionario := make(map[string]int)
 	for _, palavra := range strings.Fields(frase) {
