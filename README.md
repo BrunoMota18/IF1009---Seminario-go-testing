@@ -177,13 +177,13 @@ A comparação é feita a partir de `got` com `want` e caso venha a falhar um pr
 
 Para rodar o test deve ser utilizado `go test` porém ainda temos outras opções como o `go test -v` para ver com mais detalhes(verbose).
 
-##### go test
+#### go test
 Aqui está o comportamento do `go test`:
 
     PASS
     ok      contaPalavras  0.599s
 
-##### go test -v
+#### go test -v
 Aqui vemos como se comporta o `go test -v`:
 
 
@@ -223,6 +223,16 @@ que retornará este valor em porcentagem.
     coverage: 61.5% of statements
     ok      
     contaPalavras  0.820s
+    
+Muitas vezes enquanto escrevendo testes não conseguiremos uma cobertura que nos irá satisfazer para determinda feature. Um jeito de checar quais statements específicos ficaram faltando ser cobertos é utilizando um comando de cobertura visual que gerará um html sinalizando statements os quais não foram cobertos. Para isso nós iremos usar o comando:
+
+    go test -coverprofile="cover.txt"
+
+Este comando acima colocará os dados sobre a cobertura em um arquivo específico(poderia ser de outro formato). Em seguida executamos:
+
+	go test cover -html="cover.txt" -o cover.html
+
+Por fim, uma página html será gerada com highlighting verde para os statements cobertos e vermelha para os não cobertos.
 
 Adicionando a função Dummy e seu teste em seus respectivos arquivos deixará a explicação ficará mais clara.
 
