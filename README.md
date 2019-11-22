@@ -302,5 +302,12 @@ Para rodar o benchmark deve ser utilizado `go test -bench=.` se usamos sistemas 
     ok     
     contaPalavras  2.610s
 
+# Referências:
 
-
+* [Learn Go with Tests](https://github.com/quii/learn-go-with-tests)  
+* [A Tour of Go](https://tour.golang.org/welcome/1)  
+* [Golang basics - writing unit tests](https://blog.alexellis.io/golang-writing-unit-tests)  
+* [Testing in Go](https://dev.to/dannypsnl/testing-in-go-35ei)  
+* [Using mock on Golang tests](https://dev.to/rafaacioly/mocking-tests-with-golang-45d3)  
+* [https://golang.org/pkg/testing/](https://golang.org/pkg/testing/)  
+* [Unit Testing made easy in Go](https://medium.com/rungo/unit-testing-made-easy-in-go-25077669318) 
