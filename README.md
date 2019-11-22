@@ -1,30 +1,48 @@
 ﻿# IF1009-Seminario-go-testing
-Seminário com demo para disciplina de Teste de Software do CIn-UFPE.<br> 
+Seminário com demo para disciplina de Teste de Software do CIn-UFPE.  
 Este repositório tem como objetivo demonstrar funcionalidades da biblioteca 
 de testes **go-testing**. 
 
 ---
 
 ## [contaPalavras](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/contaPalavras/contaPalavras.go)
-A função **contaPalavras** recebe uma string e retorna a quantidade de palavras dessa frase.
+A função **contaPalavras** recebe uma string e retorna um dicionário com as frequências de cada palavra em uma frase passada como parâmetro. Caso for passado um string vazio deve retornar um erro.
 
 ## [contaPalavras_test](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/contaPalavras/contaPalavras_test.go)
-O teste checa as palavras de uma frase e verifica se há algum erro quando não há nenhuma frase.
+O teste checa o dicionário retornado e se existe algum erro assim como também se ele retorna um erro quando deve.
 
-## [contaPalavras_benchmark](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/contaPalavras/contaPalavras_benchmark.go)
-O benchmark recebe uma frase e entra em um loop com um limite delimitado pela própria função onde é possível realizar a análise de segundos por operação.
+## [dummy](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/dummy/dummy.go)
+Uma função simples que retorna `true` se o parâmetro for maior que 5 e `false` caso contrário.
+
+## [dummy_test](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/dummy/dummy_test.go)
+Uma função de teste criada para a função mencionada acima. Só cobre um único caso. Nós veremos mais disto abaixo na seção de Test Coverage.
 
 # Testes com Go!
 Ao fim desse tutorial você estará por dentro dos conceitos básicos de testes em Go.
 
+[Passo 1: Instalação](#passo-1:-instalação)  
+* [Passo 1.1: Testando o funcionamento no seu computador](#passo-1.1:-testando-o-funcionamento-no-seu-computador)
 
-# Instalação
+[Passo 2: Como fazer testes com Golang](#passo-2:-como-fazer-testes-com-golang)  
+* [Passo 2.1: Exemplo de teste utilizando GO](#passo-2.1:-exemplo-de-teste-utilizando-go)
+* [Passo 2.2: Rodando testes em Go](#passo-2.2:-rodando-testes-em-go)
+    * [go test](#go-test)
+    * [go test -v](#go-test--v)
+    * [go test -run](#go-test--run)
+    * [gotest](#gotest)
+
+[Passo 3: Test Coverage](#passo-3:-test-coverage)
+
+[Passo 4: Benchmarks](#passo-4:-benchmarks)
+* [Passo 4.1: Exemplo de benchmark utilizando GO](#passo-4.1-exemplo-de-benchmark-utilizando-go)
+
+# Passo 1: Instalação
 
 Inicialmente será necessário a instalação no seu computador.
  A documentação original pode ser encontrada [aqui](http://www.golangbr.org/doc/instalacao), assim como o instalador.
 
 
-# Testando o funcionamento no seu computador
+# Passo 1.1: Testando o funcionamento no seu computador
 
 Para testar o funcionamento da instalação, você pode criar a seguinte função em **Go**:
 
@@ -42,7 +60,7 @@ Após ter escrito, deve chamá-la conforme descrito abaixo:
 
 Caso consiga rodar sem erros, está tudo certo!
 
-# Como fazer testes com Golang
+# Passo 2: Como fazer testes com Golang
 Escrever testes em Go é como escrever qualquer outra função, porém teremos algumas regras para o funcionamento correto.
 - Como em Go já existe um recurso de testes nativo da linguagem, você só deve importar **testing**.
 
@@ -51,7 +69,7 @@ Escrever testes em Go é como escrever qualquer outra função, porém teremos a
 - O nome do arquivo deve sempre ser o nome do seu arquivo seguido de **_test.go**. Na primeira linha criamos via terminal para sistemas Unix e abaixo uma alternativa usando Powershell do Windows:
 
         touch contaPalavras_test.go #para sistemas Unix
-        echo > contaPalavras_test.go #para Windows Powershell
+        echo > contaPalavras_test.go #para Unix ou Windows Powershell
 
 - A função de teste deve começar com **Test** seguido do seu nome. 
 
@@ -61,8 +79,8 @@ Escrever testes em Go é como escrever qualquer outra função, porém teremos a
 
         TestContaPalavras(t *testing.T)
 
-## Exemplo de teste utilizando GO
-Aqui iremos demonstrar um exemplo da função **`contaPalavras()`** que tem com objetivo retornar um dicionario com as frequências de palavras de uma frase.
+## Passo 2.1: Exemplo de teste utilizando GO
+Aqui iremos demonstrar um exemplo da função **`contaPalavras()`** que tem com objetivo retornar um dicionário com as frequências de palavras de uma frase. Comece criando um arquivo e adicionando o código abaixo:
 ### contaPalavras.go
     package main
 
@@ -115,6 +133,7 @@ A biblioteca supracitada já vem com asserts prontos para serem usados como `ass
         "github.com/stretchr/testify/assert"
     )
 
+    //Esta função é um helper criado para ser usado logo abaixo
     func TestContaPalavras(t *testing.T) {
         assertEqualMaps := func(t *testing.T, got, want map[string]int) {
             t.Helper()
@@ -132,18 +151,19 @@ A biblioteca supracitada já vem com asserts prontos para serem usados como `ass
                 "vista": 2,
                 "hasta": 1,
             }
-
+            
+            //modo clássico de asserts em go(não usadas a princípio)
             if gotErr != nil {
                 t.Errorf("got %q want %q", gotErr, "nil")
             }
-            assertEqualMaps(t, gotDicionario, wantDicionario)
+            assertEqualMaps(t, gotDicionario, wantDicionario) //uso do helper acima
         })
 
         t.Run("checa se acusa erro quando não há frase", func(t *testing.T) {
             gotDicionario, gotErr := contaPalavras("")
             wantErr := errors.New("o dicionario está vazio; certifique se digitou alguma frase")
-            assert.Equal(t, 0, len(gotDicionario))
-            assert.Equal(t, wantErr, gotErr)
+            assert.Equal(t, 0, len(gotDicionario)) //assert requerida ao importar a biblioteca
+            assert.Equal(t, wantErr, gotErr) //biblioteca pode ser requerida com o comando go get
         })
     }
 
@@ -152,6 +172,8 @@ No TestContaPalavras() podemos perceber que todos os passos acima foram seguidos
 A função teste verifica se de fato o que a função contaPalavras() retorna o que é o esperado que no caso é o objeto map[string]int com as configurações guardada na variável wantDicionario.
 
 A comparação é feita a partir de `got` com `want` e caso venha a falhar um print é utilizando a partir de  `t.Errof()` ou `assert.Equal(...)`(que abstrai as funções de erro) para mostrar a diferença entre o recebido e o esperado.
+
+## Passo 2.2: Rodando testes em Go
 
 Para rodar o test deve ser utilizado `go test` porém ainda temos outras opções como o `go test -v` para ver com mais detalhes(verbose).
 
@@ -174,19 +196,22 @@ Aqui vemos como se comporta o `go test -v`:
     PASS
     ok      contaPalavras  0.722s
 
+#### go test -run
+
 Caso tenhamos mais que uma função de teste podemos usar o comando 
 
     go test -run <NomedaFuncaodeTeste>
 
 para rodar uma específica.
 
+#### gotest
 Uma opção para customizar o terminal é utilizar a biblioteca **gotest**(desta vez tudo junto) que sinaliza os testes que passarem pela cor verde e os que não pela cor vermelha:
 
     go get -u github.com/rakyll/gotest
 
 Uma vez executado este comando você pode aplicar o comando **gotest** ou **gotest -v**(análagos aos comandos anteriores) para visualizar se os testes passaram ou não com cores.
 
-# Test Coverage
+# Passo 3: Test Coverage
 
 É possível mensurar nossa statement coverage com o comando 
 
@@ -194,19 +219,14 @@ Uma vez executado este comando você pode aplicar o comando **gotest** ou **gote
 
 que retornará este valor em porcentagem.
 
-Muitas vezes enquanto escrevendo testes não conseguiremos uma cobertura que nos irá satisfazer para determinda feature. Um jeito de checar quais statements específicos ficaram faltando ser cobertos é utilizando um comando de cobertura visual que gerará um html sinalizando statements os quais não foram cobertos. Para isso nós iremos usar o comando:
+    PASS
+    coverage: 61.5% of statements
+    ok      
+    contaPalavras  0.820s
 
-    go test -coverprofile="cover.txt"
+Adicionando a função Dummy e seu teste em seus respectivos arquivos deixará a explicação ficará mais clara.
 
-Este comando acima colocará os dados sobre a cobertura em um arquivo específico(poderia ser de outro formato). Em seguida executamos:
-
-   go test cover -html="cover.txt" -o cover.html
-
-Por fim, uma página html será gerada com highlighting verde para os statements cobertos e vermelha para os não cobertos.
-
-Adicionando a função Dummy no código apenas por razões didáticas a explicação ficará mais clara.
-
-### contaPalavras.go
+### dummy.go
 
     func Dummy(x int) bool {
 	  if x > 5 {
@@ -216,7 +236,7 @@ Adicionando a função Dummy no código apenas por razões didáticas a explica�
 	  }
     }
 
-### contaPalavras_test.go
+### dummy_test.go
 
     func TestDummy(t *testing.T) {
 	  got := Dummy(6)
@@ -227,9 +247,21 @@ Adicionando a função Dummy no código apenas por razões didáticas a explica�
 	  }
     }
 
+Muitas vezes enquanto escrevendo testes não conseguiremos uma cobertura que nos irá satisfazer para determinda feature. Um jeito de checar quais statements específicos ficaram faltando ser cobertos é utilizando um comando de cobertura visual que gerará um html sinalizando statements os quais não foram cobertos. Para isso nós iremos usar o comando:
+
+    go test -coverprofile="cover.txt"
+
+Este comando acima colocará os dados sobre a cobertura em um arquivo específico(poderia ser de outro formato). Perceba que um novo arquivo será gerado em seu workspace. Em seguida executamos:
+
+    go tool -cover -html="cover.txt" -o cover.html
+
+Por fim, uma página html será gerada com highlighting verde para os statements cobertos e vermelha para os não cobertos. Caso você opte por abrir em seu browser:
+
+![alt text](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/images/statement_coverage.png "Statement Coverage")
+
 Após rodar os comandos fica notável que o caso do `else` não está sendo coberto no teste indicando que o mesmo pode ser melhorado.
 
-# Benchmarks
+# Passo 4: Benchmarks
 
 É possível realizar bechmarks dos testes em Golang para checar o seu tempo de execução. Os resultados poderão ser coletados pelo analista/engenheiro de testes afim de melhorar o desempenho dos mesmos.
 
@@ -243,7 +275,7 @@ Após rodar os comandos fica notável que o caso do `else` não está sendo cobe
 
         BenchmarkContaPalavras(b *testing.B)
 
-## Exemplo de benchmark utilizando GO
+## Passo 4.1: Exemplo de benchmark utilizando GO
 Aqui iremos demonstrar um exemplo fazendo o benchmark da função **`contaPalavras()`** que será executada N vezes onde este valor é definido pelo framework. Adicionamos a função no nosso arquivo **contaPalavras_test.go**:
 
     func BenchmarkcontaPalavras(b *testing.B) {
