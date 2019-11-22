@@ -31,9 +31,9 @@ Ao fim desse tutorial você estará por dentro dos conceitos básicos de testes 
     * [go test -run](#go-test--run)
     * [gotest](#gotest)
 
-[Passo 3: Test Coverage](#passo-3:-test-coverage)
+[Passo 3: Test Coverage](#passo-3-test-coverage)
 
-[Passo 4: Benchmarks](#passo-4:-benchmarks)
+[Passo 4: Benchmarks](#passo-4-benchmarks)
 * [Passo 4.1: Exemplo de benchmark utilizando GO](#passo-41-exemplo-de-benchmark-utilizando-go)
 
 # Passo 1: Instalação
