@@ -20,12 +20,12 @@ Uma função de teste criada para a função mencionada acima. Só cobre um úni
 # Testes com Go!
 Ao fim desse tutorial você estará por dentro dos conceitos básicos de testes em Go.
 
-[Passo 1: Instalação](#passo-1:-instalação)  
-* [Passo 1.1: Testando o funcionamento no seu computador](#passo-1.1:-testando-o-funcionamento-no-seu-computador)
+[Passo 1: Instalação](#passo-1-instalação)  
+* [Passo 1.1: Testando o funcionamento no seu computador](#passo-11-testando-o-funcionamento-no-seu-computador)
 
-[Passo 2: Como fazer testes com Golang](#passo-2:-como-fazer-testes-com-golang)  
-* [Passo 2.1: Exemplo de teste utilizando GO](#passo-2.1:-exemplo-de-teste-utilizando-go)
-* [Passo 2.2: Rodando testes em Go](#passo-2.2:-rodando-testes-em-go)
+[Passo 2: Como fazer testes com Golang](#passo-2-como-fazer-testes-com-golang)  
+* [Passo 2.1: Exemplo de teste utilizando GO](#passo-21-exemplo-de-teste-utilizando-go)
+* [Passo 2.2: Rodando testes em Go](#passo-22-rodando-testes-em-go)
     * [go test](#go-test)
     * [go test -v](#go-test--v)
     * [go test -run](#go-test--run)
@@ -34,7 +34,7 @@ Ao fim desse tutorial você estará por dentro dos conceitos básicos de testes 
 [Passo 3: Test Coverage](#passo-3:-test-coverage)
 
 [Passo 4: Benchmarks](#passo-4:-benchmarks)
-* [Passo 4.1: Exemplo de benchmark utilizando GO](#passo-4.1-exemplo-de-benchmark-utilizando-go)
+* [Passo 4.1: Exemplo de benchmark utilizando GO](#passo-41-exemplo-de-benchmark-utilizando-go)
 
 # Passo 1: Instalação
 
@@ -224,16 +224,6 @@ que retornará este valor em porcentagem.
     ok      
     contaPalavras  0.820s
     
-Muitas vezes enquanto escrevendo testes não conseguiremos uma cobertura que nos irá satisfazer para determinda feature. Um jeito de checar quais statements específicos ficaram faltando ser cobertos é utilizando um comando de cobertura visual que gerará um html sinalizando statements os quais não foram cobertos. Para isso nós iremos usar o comando:
-
-    go test -coverprofile="cover.txt"
-
-Este comando acima colocará os dados sobre a cobertura em um arquivo específico(poderia ser de outro formato). Em seguida executamos:
-
-	go test cover -html="cover.txt" -o cover.html
-
-Por fim, uma página html será gerada com highlighting verde para os statements cobertos e vermelha para os não cobertos.
-
 Adicionando a função Dummy e seu teste em seus respectivos arquivos deixará a explicação ficará mais clara.
 
 ### dummy.go
