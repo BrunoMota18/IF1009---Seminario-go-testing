@@ -25,7 +25,7 @@ func TestContaPalavras(t *testing.T) {
 		}
 	}
 
-	t.Run("checa palavras de uma frase", func(t *testing.T) {
+	t.Run("checa frequências de palavras de uma frase", func(t *testing.T) {
 		gotDicionario, gotErr := contaPalavras("Hasta la vista baby vista la baby hasta la")
 		wantDicionario := map[string]int{
 			"Hasta": 1,

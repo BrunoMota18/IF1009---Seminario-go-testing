@@ -259,7 +259,38 @@ Por fim, uma página html será gerada com highlighting verde para os statements
 
 ![alt text](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/images/statement_coverage.png "Statement Coverage")
 
-Após rodar os comandos fica notável que o caso do `else` não está sendo coberto no teste indicando que o mesmo pode ser melhorado.
+Após rodar os comandos fica notável que o caso do `else` não está sendo coberto no teste indicando que o mesmo pode ser melhorado. Este é um exemplo extremamente simples e didático sobre o tópico mas é importante que a cobertura é uma métrica para testers saberem a qualidade de sua suíte de testes. Caso seja substituído o trecho de código original acima pelo abaixo em **dummy_test.go** será alcançada a cobertura máxima(difícil na prática):
+
+### dummy_test.go
+
+    func TestDummy(t *testing.T) {
+        t.Run("deve retornar true se x é maior que 5", func(t *testing.T) {
+            got := Dummy(6)
+            want := true
+
+            if got != want {
+                t.Errorf("got %t want %t", got, want)
+            }
+        })
+
+        t.Run("deve retornar false se x é menor que 5", func(t *testing.T) {
+            got := Dummy(2)
+            want := false
+
+            if got != want {
+                t.Errorf("got %t want %t", got, want)
+            }
+        })
+    }
+
+Vamos checar utilizando nossa ferramenta visual:
+
+    go test -coverprofile="cover.txt"
+    go tool -cover -html="cover.txt" -o cover.html  
+
+Abrindo no browser:
+![alt text](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/images/statement_coverage_100%.png "Statement Coverage 100%")
+
 
 # Passo 4: Benchmarks
 
