@@ -289,7 +289,7 @@ Vamos checar utilizando nossa ferramenta visual:
     go tool -cover -html="cover.txt" -o cover.html  
 
 Abrindo no browser:
-![alt text](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/images/statement_coverage_100%.png "Statement Coverage 100%")
+![alt text](https://github.com/BrunoMota18/IF1009-Seminario-go-testing/blob/master/images/statement_coverage_100%25.png "Statement Coverage 100%")
 
 
 # Passo 4: Benchmarks
